@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Credit Pro — Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+:root{
+    --primary: #166534;
+    --primary-dark: #14532d;
+    --primary-mid: #15803d;
+    --primary-light: #dcfce7;
+    --accent: #22c55e;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --card: #ffffff;
+    --danger: #dc2626;
+}
+
+/* BACKGROUND */
+body{
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f4c2a 0%, #166534 40%, #15803d 70%, #22c55e 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before,
+body::after{
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    animation: float 8s ease-in-out infinite;
+}
+
+body::before{
+    width: 400px;
+    height: 400px;
+    top: -120px;
+    right: -100px;
+    animation-delay: 0s;
+}
+
+body::after{
+    width: 300px;
+    height: 300px;
+    bottom: -80px;
+    left: -80px;
+    animation-delay: 3s;
+}
+
+@keyframes float{
+    0%, 100%{ transform: translateY(0) scale(1); }
+    50%{ transform: translateY(-20px) scale(1.05); }
+}
+
+.dots{
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.dot{
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    animation: rise linear infinite;
+}
+
+@keyframes rise{
+    0%{ transform: translateY(100vh) scale(0); opacity: 0; }
+    10%{ opacity: 1; }
+    90%{ opacity: 1; }
+    100%{ transform: translateY(-100px) scale(1); opacity: 0; }
+}
+
+/* CARD */
+.login-card{
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255,255,255,0.97);
+    border-radius: 28px;
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.25),
+        0 0 0 1px rgba(255,255,255,0.3);
+    padding: 44px 38px;
+    position: relative;
+    z-index: 10;
+    animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes slideUp{
+    from{ opacity: 0; transform: translateY(40px) scale(0.95); }
+    to{ opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* LOGO */
+.logo{
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.logo-icon{
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #166534, #22c55e);
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 24px rgba(22,101,52,0.35);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%, 100%{ box-shadow: 0 8px 24px rgba(22,101,52,0.35); }
+    50%{ box-shadow: 0 8px 36px rgba(22,101,52,0.55); }
+}
+
+.logo h1{
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+}
+
+.logo p{
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+/* TABS */
+.tabs{
+    display: flex;
+    background: #f3f6f9;
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 28px;
+}
+
+.tab-btn{
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.tab-btn.active{
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* FORM */
+.form-panel{
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.form-panel.active{
+    display: block;
+}
+
+@keyframes fadeIn{
+    from{ opacity: 0; transform: translateX(10px); }
+    to{ opacity: 1; transform: translateX(0); }
+}
+
+.form-group{
+    margin-bottom: 18px;
+}
+
+.form-group label{
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 7px;
+}
+
+.input-wrap{
+    position: relative;
+}
+
+.input-wrap .icon{
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 17px;
+    pointer-events: none;
+}
+
+.input-wrap input{
+    width: 100%;
+    padding: 13px 14px 13px 44px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: #fafafa;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.input-wrap input:focus{
+    border-color: var(--primary);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(22,101,52,0.1);
+}
+
+.input-wrap input.error{
+    border-color: var(--danger);
+    box-shadow: 0 0 0 4px rgba(220,38,38,0.08);
+}
+
+.input-wrap .toggle-pass{
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    color: var(--muted);
+    padding: 4px;
+    transition: color 0.2s;
+}
+
+.input-wrap .toggle-pass:hover{
+    color: var(--primary);
+}
+
+/* ERROR TEXT */
+.error-text{
+    font-size: 12px;
+    color: var(--danger);
+    margin-top: 5px;
+    display: none;
+}
+
+.error-text.show{
+    display: block;
+    animation: shake 0.3s ease;
+}
+
+@keyframes shake{
+    0%, 100%{ transform: translateX(0); }
+    25%{ transform: translateX(-5px); }
+    75%{ transform: translateX(5px); }
+}
+
+.forgot{
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: var(--primary);
+    font-weight: 600;
+    margin-top: -10px;
+    margin-bottom: 22px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.forgot:hover{ opacity: 0.7; }
+
+/* SUBMIT */
+.submit-btn{
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #166534, #22c55e);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 6px 20px rgba(22,101,52,0.35);
+}
+
+.submit-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(22,101,52,0.45);
+}
+
+.submit-btn:active{ transform: translateY(0); }
+
+.submit-btn.loading{
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+.submit-btn .btn-text{ transition: opacity 0.2s; }
+.submit-btn.loading .btn-text{ opacity: 0; }
+
+.spinner{
+    display: none;
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit-btn.loading .spinner{ display: flex; }
+
+.spinner-ring{
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin{ to{ transform: rotate(360deg); } }
+
+/* DIVIDER */
+.divider{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 22px 0;
+}
+
+.divider hr{
+    flex: 1;
+    border: none;
+    border-top: 1px solid var(--border);
+}
+
+.divider span{
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+/* GOOGLE */
+.google-btn{
+    width: 100%;
+    padding: 13px;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.google-btn:hover{
+    background: #f9fafb;
+    border-color: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.google-logo{
+    width: 20px;
+    height: 20px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%23FFC107' d='M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z'/%3E%3Cpath fill='%23FF3D00' d='m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z'/%3E%3Cpath fill='%234CAF50' d='M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z'/%3E%3Cpath fill='%231976D2' d='M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* TERMS */
+.terms{
+    font-size: 11.5px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 18px;
+    line-height: 1.6;
+}
+
+.terms a{
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* TOAST */
+.toast{
+    display: none;
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    background: #111827;
+    color: white;
+    padding: 13px 22px;
+    border-radius: 12px;
+    z-index: 300;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.toast.success{ background: #166534; }
+
+/* PASSWORD STRENGTH */
+.strength-bar{
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.strength-seg{
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: #e5e7eb;
+    transition: background 0.3s;
+}
+
+.strength-label{
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+/* RESPONSIVE */
+@media(max-width: 480px){
+    .login-card{
+        padding: 32px 22px;
+        border-radius: 22px;
+    }
+    .logo h1{ font-size: 21px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dots" id="dots"></div>
+
+<div class="login-card" role="main">
+
+    <div class="logo">
+        <div class="logo-icon">&#x1F3EA;</div>
+        <h1>Smart Credit Pro</h1>
+        <p>Business Credit Management System</p>
+    </div>
+
+    <div class="tabs" role="tablist">
+        <button class="tab-btn active" id="tab-login" role="tab"
+            aria-selected="true" aria-controls="panel-login"
+            onclick="switchTab('login')">Sign In</button>
+        <button class="tab-btn" id="tab-register" role="tab"
+            aria-selected="false" aria-controls="panel-register"
+            onclick="switchTab('register')">Register</button>
+    </div>
+
+    <!-- LOGIN PANEL -->
+    <div class="form-panel active" id="panel-login" role="tabpanel" aria-labelledby="tab-login">
+
+        <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
+
+            <div class="form-group">
+                <label for="login-email">Email Address</label>
+                <div class="input-wrap">
+                    <span class="icon">&#x1F4E7;</span>
+                    <input type="email" id="login-email"
+                        placeholder="you@example.com"
+                        autocomplete="email" required>
+                </div>
+                <div class="error-text" id="login-email-err">Please enter a valid email.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <div class="input-wrap">
+                    <span class="icon">&#x1F512;</span>
+                    <input type="password" id="login-password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password" required>
+                    <button type="button" class="toggle-pass"
+                        aria-label="Toggle password visibility"
+                        onclick="togglePassword('login-password',this)">&#x1F441;&#xFE0F;</button>
+                </div>
+                <div class="error-text" id="login-pass-err">Password is required.</div>
+            </div>
+
+            <a class="forgot" onclick="handleForgot()">Forgot password?</a>
+
+            <button type="submit" class="submit-btn" id="login-btn">
+                <span class="btn-text">Sign In &#x2192;</span>
+                <div class="spinner"><div class="spinner-ring"></div></div>
+            </button>
+
+        </form>
+
+        <div class="divider"><hr><span>or continue with</span><hr></div>
+
+        <button class="google-btn" onclick="handleGoogle()">
+            <div class="google-logo"></div>
+            Sign in with Google
+        </button>
+
+        <p class="terms">
+            By signing in you agree to our
+            <a href="#">Terms of Service</a> and
+            <a href="#">Privacy Policy</a>.
+        </p>
+
+    </div>
+
+    <!-- REGISTER PANEL -->
+    <div class="form-panel" id="panel-register" role="tabpanel" aria-labelledby="tab-register">
+
+        <form id="registerForm" onsubmit="handleRegister(event)" novalidate>
+
+            <div class="form-group">
+                <label for="reg-name">Full Name</label>
+                <div class="input-wrap">
+                    <span class="icon">&#x1F464;</span>
+                    <input type="text" id="reg-name"
+                        placeholder="Jay Pujari"
+                        autocomplete="name" required>
+                </div>
+                <div class="error-text" id="reg-name-err">Please enter your full name.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="reg-email">Email Address</label>
+                <div class="input-wrap">
+                    <span class="icon">&#x1F4E7;</span>
+                    <input type="email" id="reg-email"
+                        placeholder="you@example.com"
+                        autocomplete="email" required>
+                </div>
+                <div class="error-text" id="reg-email-err">Please enter a valid email.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="reg-password">Password</label>
+                <div class="input-wrap">
+                    <span class="icon">&#x1F512;</span>
+                    <input type="password" id="reg-password"
+                        placeholder="Min 8 characters"
+                        autocomplete="new-password"
+                        oninput="checkStrength(this.value)" required>
+                    <button type="button" class="toggle-pass"
+                        aria-label="Toggle password"
+                        onclick="togglePassword('reg-password',this)">&#x1F441;&#xFE0F;</button>
+                </div>
+                <div class="strength-bar">
+                    <div class="strength-seg" id="s1"></div>
+                    <div class="strength-seg" id="s2"></div>
+                    <div class="strength-seg" id="s3"></div>
+                    <div class="strength-seg" id="s4"></div>
+                </div>
+                <div class="strength-label" id="strength-label"></div>
+                <div class="error-text" id="reg-pass-err">Password must be at least 8 characters.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="reg-confirm">Confirm Password</label>
+                <div class="input-wrap">
+                    <span class="icon">&#x1F510;</span>
+                    <input type="password" id="reg-confirm"
+                        placeholder="Re-enter password"
+                        autocomplete="new-password" required>
+                    <button type="button" class="toggle-pass"
+                        aria-label="Toggle confirm password"
+                        onclick="togglePassword('reg-confirm',this)">&#x1F441;&#xFE0F;</button>
+                </div>
+                <div class="error-text" id="reg-confirm-err">Passwords do not match.</div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="register-btn">
+                <span class="btn-text">Create Account &#x2192;</span>
+                <div class="spinner"><div class="spinner-ring"></div></div>
+            </button>
+
+        </form>
+
+        <div class="divider"><hr><span>or sign up with</span><hr></div>
+
+        <button class="google-btn" onclick="handleGoogle()">
+            <div class="google-logo"></div>
+            Sign up with Google
+        </button>
+
+        <p class="terms">
+            By creating an account you agree to our
+            <a href="#">Terms of Service</a> and
+            <a href="#">Privacy Policy</a>.
+        </p>
+
+    </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* FLOATING DOTS */
+(function(){
+    var container = document.getElementById('dots');
+    for(var i = 0; i < 18; i++){
+        var dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.style.left = (Math.random() * 100) + 'vw';
+        var size = (4 + Math.random() * 6) + 'px';
+        dot.style.width = size;
+        dot.style.height = size;
+        dot.style.animationDuration = (8 + Math.random() * 12) + 's';
+        dot.style.animationDelay = (Math.random() * 12) + 's';
+        container.appendChild(dot);
+    }
+})();
+
+/* TABS */
+function switchTab(tab){
+    document.querySelectorAll('.tab-btn').forEach(function(b){
+        b.classList.remove('active');
+        b.setAttribute('aria-selected','false');
+    });
+    document.querySelectorAll('.form-panel').forEach(function(p){
+        p.classList.remove('active');
+    });
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.getElementById('tab-' + tab).setAttribute('aria-selected','true');
+    document.getElementById('panel-' + tab).classList.add('active');
+    clearErrors();
+}
+
+/* TOGGLE PASSWORD */
+function togglePassword(inputId, btn){
+    var input = document.getElementById(inputId);
+    var isText = input.type === 'text';
+    input.type = isText ? 'password' : 'text';
+    btn.innerHTML = isText ? '&#x1F441;&#xFE0F;' : '&#x1F648;';
+}
+
+/* CLEAR ERRORS */
+function clearErrors(){
+    document.querySelectorAll('.error-text').forEach(function(e){ e.classList.remove('show'); });
+    document.querySelectorAll('input').forEach(function(i){ i.classList.remove('error'); });
+}
+
+/* SHOW ERROR */
+function showError(inputId, errId){
+    var input = document.getElementById(inputId);
+    var err = document.getElementById(errId);
+    input.classList.add('error');
+    err.classList.add('show');
+    input.focus();
+}
+
+/* PASSWORD STRENGTH */
+function checkStrength(val){
+    var score = 0;
+    if(val.length >= 8) score++;
+    if(/[A-Z]/.test(val)) score++;
+    if(/[0-9]/.test(val)) score++;
+    if(/[^A-Za-z0-9]/.test(val)) score++;
+    var colors = ['#dc2626','#ea580c','#ca8a04','#16a34a'];
+    var labels = ['Weak','Fair','Good','Strong'];
+    ['s1','s2','s3','s4'].forEach(function(id, i){
+        document.getElementById(id).style.background =
+            i < score ? colors[score-1] : '#e5e7eb';
+    });
+    var label = document.getElementById('strength-label');
+    label.textContent = val.length ? (labels[score-1] || '') : '';
+    label.style.color = score > 0 ? colors[score-1] : '#6b7280';
+}
+
+/* EMAIL VALIDATION */
+function isValidEmail(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/* LOGIN */
+function handleLogin(e){
+    e.preventDefault();
+    clearErrors();
+    var email = document.getElementById('login-email').value.trim();
+    var pass  = document.getElementById('login-password').value;
+    var valid = true;
+    if(!isValidEmail(email)){ showError('login-email','login-email-err'); valid = false; }
+    if(!pass){ if(valid) showError('login-password','login-pass-err'); valid = false; }
+    if(!valid) return;
+    var btn = document.getElementById('login-btn');
+    btn.classList.add('loading');
+    setTimeout(function(){
+        btn.classList.remove('loading');
+        showToast('Signed in successfully! Redirecting...', 'success');
+        setTimeout(function(){ window.location.href = 'CreditTrack.html'; }, 1500);
+    }, 1800);
+}
+
+/* REGISTER */
+function handleRegister(e){
+    e.preventDefault();
+    clearErrors();
+    var name    = document.getElementById('reg-name').value.trim();
+    var email   = document.getElementById('reg-email').value.trim();
+    var pass    = document.getElementById('reg-password').value;
+    var confirm = document.getElementById('reg-confirm').value;
+    var valid = true;
+    if(!name){ showError('reg-name','reg-name-err'); valid = false; }
+    if(!isValidEmail(email)){ if(valid) showError('reg-email','reg-email-err'); valid = false; }
+    if(pass.length < 8){ if(valid) showError('reg-password','reg-pass-err'); valid = false; }
+    if(pass !== confirm){ if(valid) showError('reg-confirm','reg-confirm-err'); valid = false; }
+    if(!valid) return;
+    var btn = document.getElementById('register-btn');
+    btn.classList.add('loading');
+    setTimeout(function(){
+        btn.classList.remove('loading');
+        showToast('Account created! Redirecting to app...', 'success');
+        localStorage.setItem('smartCreditUser', JSON.stringify({name: name, email: email}));
+        setTimeout(function(){ window.location.href = 'CreditTrack.html'; }, 1500);
+    }, 2000);
+}
+
+/* FORGOT PASSWORD */
+function handleForgot(){
+    var email = document.getElementById('login-email').value.trim();
+    if(!isValidEmail(email)){
+        document.getElementById('login-email-err').textContent =
+            'Enter your email above first, then click Forgot password.';
+        showError('login-email','login-email-err');
+        return;
+    }
+    showToast('Password reset link sent to ' + email, 'success');
+}
+
+/* GOOGLE */
+function handleGoogle(){
+    showToast('Google Sign-In coming soon!', '');
+}
+
+/* TOAST */
+function showToast(message, type){
+    var toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = 'toast ' + (type || '');
+    toast.style.display = 'block';
+    setTimeout(function(){ toast.style.display = 'none'; }, 3000);
+}
+
+</script>
+</body>
+</html>
